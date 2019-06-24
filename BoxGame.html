@@ -1,0 +1,91 @@
+<!-- MIT License
+
+Copyright (c) 2019 Claudia Leimhofer
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE. -->
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Box Game</title>
+<script src="scriptBoxGame.js"></script>
+</head>
+<body style="text-align:center; font-family:'Arial';" onload="init()">
+<h1>Box Game</h1>
+<button onclick="easyMethod()">Easy</button>
+<button onclick="normalMethod()">Normal</button>
+<button onclick="hardMethod()">Hard</button>
+<button onclick="nextGameMethod()">Next Game</button>
+<div style="margin-top:2em;">
+<p id="currentMode" style="display:inline;">EASY - </p>
+<p id="currentGame" style="display:inline;">Game 1</p>
+</div>
+<p id="winningColor" style="color:blue;">Winning color: BLUE</p>
+<p id="nonWinningColor" style="color:orange;">Non-Winning color: ORANGE</p>
+<div>
+<svg id="svg1" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<line id="line" x1="0" x2="40" y1="0" y2="0" style="stroke:black; stroke-width:2"/>
+<rect id="square" width="30" height="30" transform="translate(5,5)" />
+<rect id="squareNeg" width="30" height="30" transform="translate(5,5)"/>
+<rect id="rect" y="10" width="40" height="20" />
+<rect id="rectNeg" y="10" width="40" height="20" />
+<polygon id="tri" points="0,40  40,40  20,0"/>
+<polygon id="triNeg" points="0,40  40,40  20,0"/>
+<polygon id="tri2" points="0,0  20,40  40,0"/>
+<polygon id="tri2Neg" points="0,0  20,40  40,0"/>
+<polygon id="arrow" points="10,10  10,30  30,20"/>
+<polygon id="arrowNeg" points="10,10  10,30  30,20"/>
+<ellipse id="ell" cx="20" cy="20" rx="20" ry="10" />
+<ellipse id="ellNeg" cx="20" cy="20" rx="20" ry="10" />
+<circle id="circle" cx="20" cy="20" r="20" />
+<circle id="circleNeg" cx="20" cy="20" r="20" />
+<circle id="circleS" cx="10" cy="10" r="10" transform="translate(10,10)" />
+<circle id="circleSNeg" cx="10" cy="10" r="10" transform="translate(10,10)" />
+<polygon id="diamond" points="20,40  40,20  20,0  0,20" />
+<polygon id="diamondNeg" points="20,40  40,20  20,0  0,20" />
+<path id="heart" style="stroke-linejoin:round;"  transform="translate(20,20) scale(1 -1)" d="M0,-17 C 0,-17 -0.047,-16.06 -1.077,-14.499 -2.209,-12.784 -3.908,-11.101 -6.567,-8.816 -9.051,-6.681 -11.885,-4.414 -13.764,-1.899 -15.678,0.663 -16.458,3.319 -15.738,5.954 -15.034,8.537 -12.96,10.635 -10.392,11.5 -7.777,12.381 -5.187,11.833 -3.249,10.399 -1.302,8.959 -0.438,7 -0.144,5.861 0.152,4.713 -0.152,4.713 0.144,5.861 0.438,7 1.302,8.959 3.249,10.399 5.187,11.833 7.777,12.381 10.392,11.5 12.96,10.635 15.034,8.537 15.738,5.954 16.458,3.319 15.678,0.663 13.764,-1.899 11.885,-4.414 9.051,-6.681 6.567,-8.816 3.908,-11.101 2.209,-12.784 1.077,-14.499 0.047,-16.06 0,-17 0,-17z"/>
+<path id="heartNeg" style="stroke-linejoin:round;"  transform="translate(20,20) scale(1 -1)" d="M0,-17 C 0,-17 -0.047,-16.06 -1.077,-14.499 -2.209,-12.784 -3.908,-11.101 -6.567,-8.816 -9.051,-6.681 -11.885,-4.414 -13.764,-1.899 -15.678,0.663 -16.458,3.319 -15.738,5.954 -15.034,8.537 -12.96,10.635 -10.392,11.5 -7.777,12.381 -5.187,11.833 -3.249,10.399 -1.302,8.959 -0.438,7 -0.144,5.861 0.152,4.713 -0.152,4.713 0.144,5.861 0.438,7 1.302,8.959 3.249,10.399 5.187,11.833 7.777,12.381 10.392,11.5 12.96,10.635 15.034,8.537 15.738,5.954 16.458,3.319 15.678,0.663 13.764,-1.899 11.885,-4.414 9.051,-6.681 6.567,-8.816 3.908,-11.101 2.209,-12.784 1.077,-14.499 0.047,-16.06 0,-17 0,-17z"/>
+</defs>
+</svg>
+</div>
+<label> 
+<input type="checkbox" id="proofCheckBox" onclick="proofOnOff()">
+Proof On
+</label>
+<label> 
+<input type="checkbox" id="SATCheckBox" onclick="SAT()">
+Show SAT
+</label>
+<div style="margin-top:1em;">
+<button onclick="noSolution()">No Solution!</button>
+</div>
+<p id="solution1" style="color:blue;"></p>
+<p id="solution2" style="color:blue; font-weight:bold; font-size:x-large;"></p>
+<p id="solution3" style="color:green;"></p>
+<p id="solution4" style="color:green;"></p>
+<p id="solution5" style="color:green; font-weight:bold;"></p>
+<p id="info1"><b>HOW TO PLAY:</b> Assign to each of the symbols a color. An underlined symbol must have another color than the corresponding non-underlined symbol. If each box has at least one symbol colored with the winning color, you won!</p>
+<p id="info2"><b>PROOF:</b> If you click at "Proof On" and a box is colored red, this box has no symbol colored with the winning color. If a symbol is colored red, have a look to the corresponding underlined or non-underlined symbol, does it have another color?</p>
+<p id="info3" style="color:green;"></p>
+<p id="info4" style="color:green;"></p>
+<p id="info5" style="color:green;"></p>
+</body>
+</html>
