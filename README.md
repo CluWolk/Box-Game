@@ -1,2 +1,2 @@
 # Box-Game
-Game created for students to get an introduction to SAT
+The Box Game is part of my thesis in the bachelor degree course "Informatik". The game is created for students to get a gentle introduction to the Boolean Satisfiability Problem (SAT). SAT is an important question in the field of propositional logic. In computer science solving such problems is needed for e.g. artificial intelligence or circuit design. The game is playable with ordinary web browsers. It is a contribution to the field of game based learning.
